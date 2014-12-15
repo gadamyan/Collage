@@ -8,6 +8,8 @@ import com.greensock.loading.ImageLoader;
 import com.greensock.loading.LoaderMax;
 import com.greensock.loading.display.ContentDisplay;
 
+import flash.display.Bitmap;
+
 import flash.utils.Dictionary;
 
 import org.robotlegs.mvcs.Actor;
@@ -18,7 +20,7 @@ public class ImageLoaderModel extends Actor {
     public static var COL_COUNT:int = 2;
 
     private var _imagesToLoad:Array;
-    private var _imagesLoaded:Array;
+    private var _removedImage:String;
     private var _imageMap:Dictionary;
     private var _loader:LoaderMax;
     private var _failed:Boolean;
@@ -30,6 +32,16 @@ public class ImageLoaderModel extends Actor {
     }
 
     public function loadInitialImages():void {
+        LoaderMax.activate([ImageLoader]);
+        var urls:Array = [];
+        for (var i:int = 0; i < ROW_COUNT * COL_COUNT; ++i) {
+            urls.push(_imagesToLoad.shift());
+        }
+        _loader = LoaderMax.parse(urls, {name:"loader", onComplete:completeHandler, onChildFail:childFailHandler});
+        _loader.load();
+    }
+
+    public function loadImages():void {
         LoaderMax.activate([ImageLoader]);
         var urls:Array = [];
         for (var i:int = 0; i < ROW_COUNT * COL_COUNT; ++i) {
@@ -58,6 +70,15 @@ public class ImageLoaderModel extends Actor {
         _failed = true;
         var message:MessageEvent = new MessageEvent(MessageEvent.IMAGES_LOAD_FAILED);
         dispatch(message);
+    }
+
+    public function loadOtherImage(imageName:String):void {
+        _imagesToLoad.push(imageName);
+        var bitmap:Bitmap = _imageMap[imageName];
+        delete _imageMap[imageName];
+        _removedImage = imageName;
+//        var loader:ImageLoader = new ImageLoader("your_image.jpg", {name:"image",
+//            x:0, y:0, width:200, height:200, onComplete:onImageLoad});
     }
 }
 }

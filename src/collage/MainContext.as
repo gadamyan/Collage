@@ -7,6 +7,8 @@ import collage.controller.RequestGreetCommand;
 import collage.event.MessageEvent;
 import collage.model.ImageLoaderModel;
 import collage.model.SimpleModel;
+import collage.view.CollageImageView;
+import collage.view.CollageImageViewMediator;
 import collage.view.CollageLayoutView;
 import collage.view.CollageLayoutViewMediator;
 
@@ -21,6 +23,7 @@ public class MainContext extends Context {
 
     override public function startup():void {
         mediatorMap.mapView(CollageLayoutView, CollageLayoutViewMediator);
+        mediatorMap.mapView(CollageImageView, CollageImageViewMediator);
         injector.mapSingleton(SimpleModel);
         injector.mapSingleton(ImageLoaderModel);
         commandMap.mapEvent(MessageEvent.REQUEST_GREETING, RequestGreetCommand);

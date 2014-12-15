@@ -2,6 +2,8 @@
  * Created by Gev on 12/15/2014.
  */
 package collage.view {
+import collage.event.MessageEvent;
+
 import com.greensock.TweenLite;
 import com.greensock.plugins.AutoAlphaPlugin;
 import com.greensock.plugins.TweenPlugin;
@@ -31,6 +33,11 @@ public class CollageImageView extends Sprite {
         TweenPlugin.activate([AutoAlphaPlugin]);
         function motionFinishedCallback():void {
             sprite.parent.removeChild(sprite);
+            _imageBitmap.parent.removeChild(_imageBitmap);
+            _imageBitmap = null;
+            var messageEvent:MessageEvent = new MessageEvent(MessageEvent.IMAGE_REMOVED);
+            messageEvent.image = _imageName;
+            dispatchEvent(messageEvent);
         }
         TweenLite.to(sprite, 1, {autoAlpha:0, onComplete:motionFinishedCallback});
     }
