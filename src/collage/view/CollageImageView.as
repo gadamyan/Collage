@@ -6,8 +6,6 @@ import collage.event.ImageEvent;
 
 import com.greensock.TweenLite;
 import com.greensock.layout.AutoFitArea;
-import com.greensock.plugins.AutoAlphaPlugin;
-import com.greensock.plugins.TweenPlugin;
 
 import flash.display.Bitmap;
 import flash.display.DisplayObject;

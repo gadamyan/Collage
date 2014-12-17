@@ -4,10 +4,8 @@
 package collage {
 import collage.controller.LoadImageCommand;
 import collage.controller.LoadImagesCommand;
-import collage.controller.RequestGreetCommand;
 import collage.event.ImageEvent;
 import collage.model.ImagesModel;
-import collage.model.SimpleModel;
 import collage.service.ImageLoaderService;
 import collage.view.CollageImageView;
 import collage.view.CollageImageViewMediator;
@@ -26,10 +24,8 @@ public class MainContext extends Context {
     override public function startup():void {
         mediatorMap.mapView(CollageLayoutView, CollageLayoutViewMediator);
         mediatorMap.mapView(CollageImageView, CollageImageViewMediator);
-        injector.mapSingleton(SimpleModel);
         injector.mapSingleton(ImagesModel);
         injector.mapSingleton(ImageLoaderService);
-        commandMap.mapEvent(ImageEvent.REQUEST_GREETING, RequestGreetCommand);
         commandMap.mapEvent(ImageEvent.LOAD_IMAGES, LoadImagesCommand);
         commandMap.mapEvent(ImageEvent.LOAD_IMAGE, LoadImageCommand);
         contextView.addChild(new CollageLayoutView());

@@ -6,29 +6,19 @@ import flash.events.Event;
 import flash.utils.Dictionary;
 
 public class ImageEvent extends Event {
-    public static const GREET:String = "GREET";
-    public static const REQUEST_GREETING:String = "REQUEST_GREETING";
     public static const LOAD_IMAGES:String = "LOAD_IMAGES";
     public static const LOAD_IMAGE:String = "LOAD_IMAGE";
     public static const IMAGES_LOADED:String = "IMAGES_LOADED";
     public static const IMAGE_LOAD_FAILED:String = "IMAGE_LOAD_FAILED";
     public static const IMAGE_LOADED:String = "IMAGE_LOADED";
     public static const IMAGE_REMOVED:String = "IMAGE_REMOVED";
+
     private var _image:String;
     private var _newImage:String;
-    private var _message:String;
     private var _imageMap:Dictionary;
 
     public function ImageEvent(type:String) {
         super(type);
-    }
-
-    public function get message():String {
-        return _message;
-    }
-
-    public function set message(value:String):void {
-        _message = value;
     }
 
     public function get imageMap():Dictionary {

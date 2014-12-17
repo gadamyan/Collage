@@ -33,6 +33,7 @@ public class ImagesModel extends Actor {
         _imagesToLoad.push(imageName);
         var bitmap:Bitmap = _imageMap[imageName];
         delete _imageMap[imageName];
+        bitmap.bitmapData.dispose();
         return _imagesToLoad.shift();
     }
 

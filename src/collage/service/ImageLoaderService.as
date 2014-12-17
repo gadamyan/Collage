@@ -21,11 +21,11 @@ public class ImageLoaderService extends Actor {
     public function loadInitialImages():void {
         LoaderMax.activate([ImageLoader]);
         var urls:Array = _imagesModel.getInitialImages();
-        var loader:LoaderMax = LoaderMax.parse(urls, {name:"loader", onComplete:completeHandler, onChildFail:childFailHandler});
+        var loader:LoaderMax = LoaderMax.parse(urls, {name:"loader", onComplete:imagesLoadedCallback, onChildFail:imageFailedCallback});
         loader.load();
     }
 
-    private function completeHandler(event:LoaderEvent):void {
+    private function imagesLoadedCallback(event:LoaderEvent):void {
         if (_failed) {
             return;
         }
@@ -33,7 +33,7 @@ public class ImageLoaderService extends Actor {
         _imagesModel.initialImagesLoaded(loader.content);
     }
 
-    private function childFailHandler(event:LoaderEvent):void {
+    private function imageFailedCallback(event:LoaderEvent):void {
         if (_failed) {
             return;
         }
@@ -43,11 +43,11 @@ public class ImageLoaderService extends Actor {
 
     public function loadImage(imageName:String):void {
         var imageToLoad:String = _imagesModel.getNextImageToLoad(imageName);
-        var loader:ImageLoader = new ImageLoader(imageToLoad, {name: "image", prevImage: imageName, onComplete:onImageLoaded, onFail:childFailHandler});
+        var loader:ImageLoader = new ImageLoader(imageToLoad, {noCache:true, name: "image", prevImage: imageName, onComplete:imageLoadedCallback, onFail:imageFailedCallback});
         loader.load();
     }
 
-    private function onImageLoaded(event:LoaderEvent):void {
+    private function imageLoadedCallback(event:LoaderEvent):void {
         if (_failed) {
             return;
         }

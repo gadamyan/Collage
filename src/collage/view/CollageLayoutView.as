@@ -5,20 +5,27 @@ package collage.view {
 import collage.Config;
 
 import flash.display.Bitmap;
+import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
 import flash.utils.Dictionary;
 import flash.utils.getQualifiedSuperclassName;
 
 public class CollageLayoutView extends Sprite {
-    private var _textField:TextField;
-    public function CollageLayoutView() {
-        _textField = new TextField();
-        addChild(_textField);
-    }
 
-    public function updateMessage(message:String):void {
-        _textField.text = message;
+    public function showFailureMessage():void {
+        var bgSprite:Sprite = new Sprite();
+        bgSprite.graphics.beginFill(0xFFFFFF, 0.4);
+        bgSprite.graphics.drawRect(0, 0, Config.STAGE_WIDTH, Config.STAGE_HEIGHT);
+        bgSprite.graphics.endFill();
+        addChild(bgSprite);
+        var textField:TextField = new TextField();
+        textField.text = "FAILED TO LOAD THE IMAGE";
+        textField.autoSize = TextFieldAutoSize.CENTER;
+        textField.x = Config.STAGE_WIDTH/ 2 - textField.width/ 2;
+        textField.y = Config.STAGE_HEIGHT/ 2 - textField.height/ 2;
+        addChild(textField);
     }
 
     public function createImages(imageMap:Dictionary):void {
@@ -34,11 +41,12 @@ public class CollageLayoutView extends Sprite {
                 j++;
             }
             var image:Bitmap = imageMap[name];
-            var collageView:CollageImageView = ImageViewFactory.createImageView(getQualifiedSuperclassName(CollageImageView), name, image, blockWidth, blockHeight);
-            collageView.x = i * blockWidth;
-            collageView.y = j * blockHeight;
+            var collageView:IImageView = ImageViewFactory.createImageView(getQualifiedSuperclassName(CollageImageView), name, image, blockWidth, blockHeight);
+            var displayObject:DisplayObject = collageView.getDisplayObject;
+            displayObject.x = i * blockWidth;
+            displayObject.y = j * blockHeight;
             i++;
-            addChild(collageView);
+            addChild(displayObject);
         }
     }
 }

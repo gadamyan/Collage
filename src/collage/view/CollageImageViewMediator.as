@@ -9,7 +9,6 @@ import org.robotlegs.mvcs.Mediator;
 
 public class CollageImageViewMediator extends Mediator {
     [Inject] public var _collageImageView:CollageImageView;
-    [Inject] public var _imageLoaderService:ImageLoaderService;
 
     override public function onRegister():void {
         eventMap.mapListener(_collageImageView, ImageEvent.IMAGE_REMOVED, imageRemoved);
@@ -17,7 +16,9 @@ public class CollageImageViewMediator extends Mediator {
     }
 
     private function imageRemoved(event:ImageEvent):void {
-        _imageLoaderService.loadImage(event.image);
+        var imageEvent:ImageEvent = new ImageEvent(ImageEvent.LOAD_IMAGE);
+        imageEvent.image = event.image;
+        dispatch(imageEvent);
     }
 
     private function imageLoaded(event:ImageEvent):void {
