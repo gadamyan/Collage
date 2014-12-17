@@ -2,11 +2,13 @@
  * Created by Gev on 12/15/2014.
  */
 package collage {
+import collage.controller.LoadImageCommand;
 import collage.controller.LoadImagesCommand;
 import collage.controller.RequestGreetCommand;
-import collage.event.MessageEvent;
-import collage.model.ImageLoaderModel;
+import collage.event.ImageEvent;
+import collage.model.ImagesModel;
 import collage.model.SimpleModel;
+import collage.service.ImageLoaderService;
 import collage.view.CollageImageView;
 import collage.view.CollageImageViewMediator;
 import collage.view.CollageLayoutView;
@@ -25,9 +27,11 @@ public class MainContext extends Context {
         mediatorMap.mapView(CollageLayoutView, CollageLayoutViewMediator);
         mediatorMap.mapView(CollageImageView, CollageImageViewMediator);
         injector.mapSingleton(SimpleModel);
-        injector.mapSingleton(ImageLoaderModel);
-        commandMap.mapEvent(MessageEvent.REQUEST_GREETING, RequestGreetCommand);
-        commandMap.mapEvent(MessageEvent.LOAD_IMAGES, LoadImagesCommand);
+        injector.mapSingleton(ImagesModel);
+        injector.mapSingleton(ImageLoaderService);
+        commandMap.mapEvent(ImageEvent.REQUEST_GREETING, RequestGreetCommand);
+        commandMap.mapEvent(ImageEvent.LOAD_IMAGES, LoadImagesCommand);
+        commandMap.mapEvent(ImageEvent.LOAD_IMAGE, LoadImageCommand);
         contextView.addChild(new CollageLayoutView());
     }
 }

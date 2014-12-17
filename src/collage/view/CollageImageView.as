@@ -2,9 +2,10 @@
  * Created by Gev on 12/15/2014.
  */
 package collage.view {
-import collage.event.MessageEvent;
+import collage.event.ImageEvent;
 
 import com.greensock.TweenLite;
+import com.greensock.layout.AutoFitArea;
 import com.greensock.plugins.AutoAlphaPlugin;
 import com.greensock.plugins.TweenPlugin;
 
@@ -15,31 +16,46 @@ import flash.events.MouseEvent;
 public class CollageImageView extends Sprite {
     private var _imageBitmap:Bitmap;
     private var _imageName:String;
+    private var _sprite:Sprite;
+    private var _isFading:Boolean;
+    private var _autoFitArea:AutoFitArea;
 
     public function CollageImageView(imageName:String, imageBitmap:Bitmap, blockWidth:Number, blockHeight:Number) {
         _imageName = imageName;
         _imageBitmap = imageBitmap;
-        var sprite:Sprite = new Sprite();
-        sprite.addChild(_imageBitmap);
-        sprite.width = blockWidth;
-        sprite.height = blockHeight;
+        _isFading = false;
+        _sprite = new Sprite();
+        _sprite.addChild(_imageBitmap);
         addEventListener(MouseEvent.CLICK, imageClickedHandler);
-        addChild(sprite);
+        addChild(_sprite);
+        _autoFitArea = new AutoFitArea(this, 0, 0, blockWidth, blockHeight);
+        _autoFitArea.attach(_sprite);
     }
 
     private function imageClickedHandler(event:MouseEvent):void {
-        event.target.removeEventListener(event.type, arguments.callee);
-        var sprite:Sprite = event.target as Sprite;
-        TweenPlugin.activate([AutoAlphaPlugin]);
+        if (_isFading) {
+            return;
+        }
+        _isFading = true;
         function motionFinishedCallback():void {
-            sprite.parent.removeChild(sprite);
-            _imageBitmap.parent.removeChild(_imageBitmap);
+            _sprite.removeChild(_imageBitmap);
             _imageBitmap = null;
-            var messageEvent:MessageEvent = new MessageEvent(MessageEvent.IMAGE_REMOVED);
+            var messageEvent:ImageEvent = new ImageEvent(ImageEvent.IMAGE_REMOVED);
             messageEvent.image = _imageName;
             dispatchEvent(messageEvent);
         }
-        TweenLite.to(sprite, 1, {autoAlpha:0, onComplete:motionFinishedCallback});
+        TweenLite.to(_sprite, 1, {alpha:0, onComplete:motionFinishedCallback});
+    }
+
+    public function updateImage(image:String, newImage:String, bitmap:Bitmap):void {
+        if (_imageName == image) {
+            _imageName = newImage;
+            _imageBitmap = bitmap;
+            _sprite.addChild(_imageBitmap);
+            _autoFitArea.update();
+            TweenLite.to(_sprite, 1, {alpha: 1.0});
+            _isFading = false;
+        }
     }
 }
 }

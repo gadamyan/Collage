@@ -2,7 +2,7 @@
  * Created by Gev on 12/15/2014.
  */
 package collage.view {
-import collage.model.ImageLoaderModel;
+import collage.Config;
 
 import flash.display.Bitmap;
 import flash.display.Sprite;
@@ -11,14 +11,8 @@ import flash.utils.Dictionary;
 
 public class CollageLayoutView extends Sprite {
     private var _textField:TextField;
-    public var STAGE_WIDTH:int;
-    public var STAGE_HEIGHT:int;
     public function CollageLayoutView() {
         _textField = new TextField();
-//        _simpleButton = new FlexSimpleButton();
-//        _simpleButton
-//        _simpleButton
-//        addChild(_simpleButton);
         addChild(_textField);
     }
 
@@ -27,14 +21,14 @@ public class CollageLayoutView extends Sprite {
     }
 
     public function updateImages(imageMap:Dictionary):void {
-        STAGE_WIDTH = stage.stageWidth;
-        STAGE_HEIGHT = stage.stageHeight;
-        var blockWidth:Number = STAGE_WIDTH / ImageLoaderModel.COL_COUNT;
-        var blockHeight:Number = STAGE_HEIGHT / ImageLoaderModel.ROW_COUNT;
+        Config.STAGE_WIDTH = stage.stageWidth;
+        Config.STAGE_HEIGHT = stage.stageHeight;
+        var blockWidth:Number = Config.STAGE_WIDTH / Config.COL_COUNT;
+        var blockHeight:Number = Config.STAGE_HEIGHT / Config.ROW_COUNT;
         var i:int = 0;
         var j:int = 0;
         for (var name:String in imageMap) {
-            if (i == ImageLoaderModel.COL_COUNT) {
+            if (i == Config.COL_COUNT) {
                 i = 0;
                 j++;
             }

@@ -2,7 +2,7 @@
  * Created by Gev on 12/15/2014.
  */
 package collage.model {
-import collage.event.MessageEvent;
+import collage.event.ImageEvent;
 
 import org.robotlegs.mvcs.Actor;
 
@@ -13,7 +13,7 @@ public class SimpleModel extends Actor {
     }
 
     public function messageRequest():void {
-        var messageEvent:MessageEvent = new MessageEvent(MessageEvent.GREET);
+        var messageEvent:ImageEvent = new ImageEvent(ImageEvent.GREET);
         messageEvent.message = _message;
         dispatch(messageEvent);
     }
