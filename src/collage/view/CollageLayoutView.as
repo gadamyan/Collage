@@ -8,6 +8,7 @@ import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.text.TextField;
 import flash.utils.Dictionary;
+import flash.utils.getQualifiedSuperclassName;
 
 public class CollageLayoutView extends Sprite {
     private var _textField:TextField;
@@ -20,7 +21,7 @@ public class CollageLayoutView extends Sprite {
         _textField.text = message;
     }
 
-    public function updateImages(imageMap:Dictionary):void {
+    public function createImages(imageMap:Dictionary):void {
         Config.STAGE_WIDTH = stage.stageWidth;
         Config.STAGE_HEIGHT = stage.stageHeight;
         var blockWidth:Number = Config.STAGE_WIDTH / Config.COL_COUNT;
@@ -33,7 +34,7 @@ public class CollageLayoutView extends Sprite {
                 j++;
             }
             var image:Bitmap = imageMap[name];
-            var collageView:CollageImageView = new CollageImageView(name, image, blockWidth, blockHeight);
+            var collageView:CollageImageView = ImageViewFactory.createImageView(getQualifiedSuperclassName(CollageImageView), name, image, blockWidth, blockHeight);
             collageView.x = i * blockWidth;
             collageView.y = j * blockHeight;
             i++;

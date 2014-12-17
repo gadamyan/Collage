@@ -19,7 +19,7 @@ public class CollageLayoutViewMediator extends Mediator {
     }
 
     private function imageLoadedHandler(event:ImageEvent):void {
-        _collageLayoutView.updateImages(event.imageMap);
+        _collageLayoutView.createImages(event.imageMap);
     }
 
     private function imageLoadFailedHandler(event:ImageEvent):void {

@@ -10,10 +10,11 @@ import com.greensock.plugins.AutoAlphaPlugin;
 import com.greensock.plugins.TweenPlugin;
 
 import flash.display.Bitmap;
+import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 
-public class CollageImageView extends Sprite {
+public class CollageImageView extends Sprite implements IImageView {
     private var _imageBitmap:Bitmap;
     private var _imageName:String;
     private var _sprite:Sprite;
@@ -56,6 +57,10 @@ public class CollageImageView extends Sprite {
             TweenLite.to(_sprite, 1, {alpha: 1.0});
             _isFading = false;
         }
+    }
+
+    public function get getDisplayObject():DisplayObject {
+        return this;
     }
 }
 }
