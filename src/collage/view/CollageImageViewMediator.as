@@ -8,10 +8,10 @@ import collage.service.ImageLoaderService;
 import org.robotlegs.mvcs.Mediator;
 
 public class CollageImageViewMediator extends Mediator {
-    [Inject] public var _collageImageView:CollageImageView;
+    [Inject] public var collageImageView:CollageImageView;
 
     override public function onRegister():void {
-        eventMap.mapListener(_collageImageView, ImageEvent.IMAGE_REMOVED, imageRemoved);
+        eventMap.mapListener(collageImageView, ImageEvent.IMAGE_REMOVED, imageRemoved);
         eventMap.mapListener(eventDispatcher, ImageEvent.IMAGE_LOADED, imageLoaded);
     }
 
@@ -22,7 +22,7 @@ public class CollageImageViewMediator extends Mediator {
     }
 
     private function imageLoaded(event:ImageEvent):void {
-        _collageImageView.updateImage(event.image, event.newImage, event.imageMap[event.newImage]);
+        collageImageView.updateImage(event.image, event.newImage, event.imageMap[event.newImage]);
     }
 }
 }

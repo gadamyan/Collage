@@ -9,12 +9,12 @@ import org.robotlegs.mvcs.Command;
 
 public class LoadImageCommand extends Command {
     [Inject]
-    public var _imageEvent:ImageEvent;
+    public var imageEvent:ImageEvent;
     [Inject]
-    public var _imageLoaderService:ImageLoaderService;
+    public var imageLoaderService:ImageLoaderService;
 
     override public function execute():void {
-        _imageLoaderService.loadImage(_imageEvent.image);
+        imageLoaderService.loadImage(imageEvent.image);
     }
 }
 }

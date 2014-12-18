@@ -8,9 +8,9 @@ import org.robotlegs.mvcs.Command;
 
 public class LoadImagesCommand extends Command {
     [Inject]
-    public var _imageLoaderService:ImageLoaderService;
+    public var imageLoaderService:ImageLoaderService;
     override public function execute():void {
-        _imageLoaderService.loadInitialImages();
+        imageLoaderService.loadInitialImages();
     }
 }
 }

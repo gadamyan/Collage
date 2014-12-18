@@ -8,7 +8,7 @@ import collage.event.ImageEvent;
 import org.robotlegs.mvcs.Mediator;
 
 public class CollageLayoutViewMediator extends Mediator {
-    [Inject] public var _collageLayoutView:CollageLayoutView;
+    [Inject] public var collageLayoutView:CollageLayoutView;
 
     override public function onRegister():void {
         eventMap.mapListener(eventDispatcher, ImageEvent.IMAGE_LOAD_FAILED, imageLoadFailedHandler);
@@ -17,11 +17,11 @@ public class CollageLayoutViewMediator extends Mediator {
     }
 
     private function imageLoadedHandler(event:ImageEvent):void {
-        _collageLayoutView.createImages(event.imageMap);
+        collageLayoutView.createImages(event.imageMap);
     }
 
     private function imageLoadFailedHandler(event:ImageEvent):void {
-        _collageLayoutView.showFailureMessage();
+        collageLayoutView.showFailureMessage();
     }
 }
 }
