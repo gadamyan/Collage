@@ -6,13 +6,98 @@
 
     <groupId>com.gadamyan.collage</groupId>
     <artifactId>collag</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>swf</packaging>
     <name>Collage</name>
+
+    <properties>
+        <flex.framework.version>4.5.1.21328</flex.framework.version>
+        <sourceDir>src/collage</sourceDir>
+    </properties>
 
     <build>
         <sourceDirectory>src/collage</sourceDirectory>
         <testSourceDirectory>testSrc/collage</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>4.2-beta</version>
+                <extensions>true</extensions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.framework.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.adobe.flex.compiler</groupId>
+                        <artifactId>adt</artifactId>
+                        <version>${flex.framework.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <debug>true</debug>
+                    <sourceFile>Main.as</sourceFile>
+                    <descriptorTemplate>collage-app.xml</descriptorTemplate>
+                    <storepass>secret</storepass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>sign-air</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>air-framework</artifactId>
+            <version>15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.greensock</groupId>
+            <artifactId>greensock</artifactId>
+            <version>v11</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>org.robotlegs</groupId>
+            <artifactId>robotlegs</artifactId>
+            <version>1.5.2</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>org.swiftsuspenders</groupId>
+            <artifactId>swiftsuspenders</artifactId>
+            <version>1.6.0</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <version>4.12.0</version>
+            <type>swc</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>flex-mojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>flex-mojos-plugin-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

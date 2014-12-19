@@ -26,6 +26,11 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="IdProvider" IDEtalkID="65D2A0FB935A5FA41B1B8BC388B73394" />
   <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/pom.xml" />
