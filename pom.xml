@@ -6,17 +6,17 @@
 
     <groupId>com.gadamyan.collage</groupId>
     <artifactId>collag</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>swf</packaging>
     <name>Collage</name>
 
     <properties>
         <flex.framework.version>4.5.1.21328</flex.framework.version>
-        <sourceDir>src/collage</sourceDir>
+        <air.sdk.version>15.0</air.sdk.version>
     </properties>
 
     <build>
-        <sourceDirectory>src/collage</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>testSrc/collage</testSourceDirectory>
         <plugins>
             <plugin>
@@ -39,9 +39,9 @@
                 </dependencies>
                 <configuration>
                     <debug>true</debug>
-                    <sourceFile>Main.as</sourceFile>
+                    <sourceFile>collage/Main.as</sourceFile>
                     <descriptorTemplate>collage-app.xml</descriptorTemplate>
-                    <storepass>secret</storepass>
+                    <storepass>changeit</storepass>
                 </configuration>
                 <executions>
                     <execution>
@@ -58,32 +58,42 @@
         <dependency>
             <groupId>com.adobe.flex.framework</groupId>
             <artifactId>air-framework</artifactId>
-            <version>15.0</version>
+            <version>4.5.1.21328</version>
+            <type>pom</type>
         </dependency>
+
         <dependency>
             <groupId>com.greensock</groupId>
             <artifactId>greensock</artifactId>
-            <version>v11</version>
+            <version>12.1.4</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/greensock.swc</systemPath>
             <type>swc</type>
         </dependency>
+
         <dependency>
             <groupId>org.robotlegs</groupId>
             <artifactId>robotlegs</artifactId>
             <version>1.5.2</version>
             <type>swc</type>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/robotlegs-framework-v1.5.2.swc</systemPath>
         </dependency>
         <dependency>
             <groupId>org.swiftsuspenders</groupId>
             <artifactId>swiftsuspenders</artifactId>
             <version>1.6.0</version>
             <type>swc</type>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/SwiftSuspenders-v1.6.0.swc</systemPath>
         </dependency>
         <dependency>
             <groupId>com.adobe.flexunit</groupId>
             <artifactId>flexunit</artifactId>
             <version>4.12.0</version>
             <type>swc</type>
-            <scope>test</scope>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/flexunit-4.2.0-20140410-as3_4.12.0.swc</systemPath>
         </dependency>
     </dependencies>
 
@@ -91,6 +101,12 @@
         <repository>
             <id>flex-mojos-repository</id>
             <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+        </repository>
+        <repository>
+            <id>flex-libs</id>
+            <name>flex-libs</name>
+            <layout>default</layout>
+            <url>${project.basedir}/libs</url>
         </repository>
     </repositories>
 
